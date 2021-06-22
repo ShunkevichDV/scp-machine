@@ -123,7 +123,10 @@ void SCPOperator::ClearExecutionState(const std::unique_ptr<ScMemoryContext>& ct
             arcs.push_back(iter->Get(1));
     }
     for (std::vector<ScAddr>::iterator i = arcs.begin(); i != arcs.end(); ++i)
-        ctx->EraseElement(*i);
+    {
+        ctx->CreateArc(ScType::EdgeAccessConstPosPerm, Keynodes::last_entity, *i);
+    }
+    //ctx->EraseElement(*i);
 }
 
 void SCPOperator::FinishExecution(const std::unique_ptr<ScMemoryContext>& ctx, ScAddr oper_addr)

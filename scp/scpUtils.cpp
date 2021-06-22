@@ -62,50 +62,50 @@ bool resolveOrderRoleRelation(const std::unique_ptr<ScMemoryContext>& ctx, uint8
 {
     switch (order)
     {
-        case 1:
-            relationAddr = Keynodes::rrel_1;
-            return true;
-            break;
-        case 2:
-            relationAddr = Keynodes::rrel_2;
-            return true;
-            break;
-        case 3:
-            relationAddr = Keynodes::rrel_3;
-            return true;
-            break;
-        case 4:
-            relationAddr = Keynodes::rrel_4;
-            return true;
-            break;
-        case 5:
-            relationAddr = Keynodes::rrel_5;
-            return true;
-            break;
-        case 6:
-            relationAddr = Keynodes::rrel_6;
-            return true;
-            break;
-        case 7:
-            relationAddr = Keynodes::rrel_7;
-            return true;
-            break;
-        case 8:
-            relationAddr = Keynodes::rrel_8;
-            return true;
-            break;
-        case 9:
-            relationAddr = Keynodes::rrel_9;
-            return true;
-            break;
-        case 10:
-            relationAddr = Keynodes::rrel_10;
-            return true;
-            break;
-        default:
-            relationAddr.Reset();
-            return false;
-            break;
+    case 1:
+        relationAddr = Keynodes::rrel_1;
+        return true;
+        break;
+    case 2:
+        relationAddr = Keynodes::rrel_2;
+        return true;
+        break;
+    case 3:
+        relationAddr = Keynodes::rrel_3;
+        return true;
+        break;
+    case 4:
+        relationAddr = Keynodes::rrel_4;
+        return true;
+        break;
+    case 5:
+        relationAddr = Keynodes::rrel_5;
+        return true;
+        break;
+    case 6:
+        relationAddr = Keynodes::rrel_6;
+        return true;
+        break;
+    case 7:
+        relationAddr = Keynodes::rrel_7;
+        return true;
+        break;
+    case 8:
+        relationAddr = Keynodes::rrel_8;
+        return true;
+        break;
+    case 9:
+        relationAddr = Keynodes::rrel_9;
+        return true;
+        break;
+    case 10:
+        relationAddr = Keynodes::rrel_10;
+        return true;
+        break;
+    default:
+        relationAddr.Reset();
+        return false;
+        break;
     }
 }
 
@@ -190,10 +190,12 @@ bool scLinkContentIsInt(const std::unique_ptr<ScMemoryContext>& ctx, ScAddr cons
         std::string string;
         if (ScStreamConverter::StreamToString(stream, string))
         {
-            if(string.find("int:") != std::string::npos){
+            if (string.find("int:") != std::string::npos)
+            {
                 return true;
             }
-            else{
+            else
+            {
                 return false;
             }
         }
@@ -213,7 +215,7 @@ int scLinkGetContentInt(const std::unique_ptr<ScMemoryContext>& ctx, ScAddr cons
             std::string::size_type i = string.find(intInit);
 
             if (i != std::string::npos)
-               string.erase(i, intInit.length());
+                string.erase(i, intInit.length());
             int convertedInt = std::stoi(string);
 
             return convertedInt;
@@ -245,13 +247,15 @@ bool scLinkContentIsUint(const std::unique_ptr<ScMemoryContext>& ctx, ScAddr con
         std::string string;
         if (ScStreamConverter::StreamToString(stream, string))
         {
-            if(string.find("uint:") != std::string::npos){
+            if (string.find("uint:") != std::string::npos)
+            {
 
                 std::cout << "EEEEYE!!!";
 
                 return true;
             }
-            else{
+            else
+            {
                 return false;
             }
         }
@@ -271,7 +275,7 @@ int scLinkGetContentUint(const std::unique_ptr<ScMemoryContext>& ctx, ScAddr con
             std::string::size_type i = string.find(intInit);
 
             if (i != std::string::npos)
-               string.erase(i, intInit.length());
+                string.erase(i, intInit.length());
 
             int convertedInt = std::stoi(string);
 
@@ -288,13 +292,15 @@ bool scLinkContentIsFloat(const std::unique_ptr<ScMemoryContext>& ctx, ScAddr co
         std::string string;
         if (ScStreamConverter::StreamToString(stream, string))
         {
-            if(string.find("float:") != std::string::npos){
+            if (string.find("float:") != std::string::npos)
+            {
 
                 std::cout << "EEEEYE!!!";
 
                 return true;
             }
-            else{
+            else
+            {
                 return false;
             }
         }
@@ -314,7 +320,7 @@ float scLinkGetContentFloat(const std::unique_ptr<ScMemoryContext>& ctx, ScAddr 
             std::string::size_type i = string.find(intInit);
 
             if (i != std::string::npos)
-               string.erase(i, intInit.length());
+                string.erase(i, intInit.length());
             float convertedFloat = std::stof(string);
             return convertedFloat;
         }
@@ -331,12 +337,14 @@ bool scLinkContentIsDouble(const std::unique_ptr<ScMemoryContext>& ctx, ScAddr c
         {
 
             //FinishExecutionSuccessfully();
-            if(string.find("double:") != std::string::npos){
+            if (string.find("double:") != std::string::npos)
+            {
                 std::cout << "EEEEYE!!!";
 
                 return true;
             }
-            else{
+            else
+            {
                 return false;
             }
         }
@@ -356,7 +364,7 @@ double scLinkGetContentDouble(const std::unique_ptr<ScMemoryContext>& ctx, ScAdd
             std::string::size_type i = string.find(intInit);
 
             if (i != std::string::npos)
-               string.erase(i, intInit.length());
+                string.erase(i, intInit.length());
             double convertedDouble = std::stod(string);
             return convertedDouble;
         }
@@ -365,8 +373,8 @@ double scLinkGetContentDouble(const std::unique_ptr<ScMemoryContext>& ctx, ScAdd
 
 
 ScStreamMemory::ScStreamMemory(MemoryBufferPtr const & buff)
-  : ScStream (static_cast<sc_char const *>(buff->Data()), sc_uint(buff->Size()), SC_STREAM_FLAG_READ)
-  , m_buffer(buff)
+    : ScStream(static_cast<sc_char const *>(buff->Data()), sc_uint(buff->Size()), SC_STREAM_FLAG_READ)
+    , m_buffer(buff)
 {
 }
 
@@ -376,8 +384,8 @@ ScStreamMemory::~ScStreamMemory()
 
 ScStreamPtr StreamFromString(std::string const & str)
 {
-  MemoryBufferPtr buff = MemoryBufferPtr(new MemoryBufferSafe(str.c_str(), (uint32_t)str.size()));
-  return std::make_shared<ScStreamMemory>(buff);
+    MemoryBufferPtr buff = MemoryBufferPtr(new MemoryBufferSafe(str.c_str(), (uint32_t)str.size()));
+    return std::make_shared<ScStreamMemory>(buff);
 }
 
 string getIntegerString(const std::unique_ptr<ScMemoryContext>& ctx, ScAddr const& elemAddr)
@@ -387,7 +395,7 @@ string getIntegerString(const std::unique_ptr<ScMemoryContext>& ctx, ScAddr cons
 
     string result = "";
 
-    if(input.find("int:") != std::string::npos && regex_match(input, integer_expr)) result = input;
+    if (input.find("int:") != std::string::npos && regex_match(input, integer_expr)) result = input;
     return result;
 }
 
@@ -395,26 +403,27 @@ string getIntegerString(const std::unique_ptr<ScMemoryContext>& ctx, ScAddr cons
 void printOperatorAnswer(const std::unique_ptr<ScMemoryContext>& ctx, SCPOperand* nodeAddr, ScAddr const& linkAddr)
 {
     ScAddr elem1, elem3, elem5, arc1;
-        elem1.Reset();
-        elem3.Reset();
-        elem5.Reset();
-        arc1.Reset();
+    elem1.Reset();
+    elem3.Reset();
+    elem5.Reset();
+    arc1.Reset();
 
-        elem5 = Keynodes::nrel_scp_var_value;
-        elem3 = linkAddr;
-        elem1 = nodeAddr->CreateNodeOrLink();
+    elem5 = Keynodes::nrel_scp_var_value;
+    elem3 = linkAddr;
+    elem1 = nodeAddr->CreateNodeOrLink();
 
-        arc1 = ctx->CreateArc(sc_type_arc_common, elem1, elem3);
-        ctx->CreateArc(sc_type_arc_pos_const_perm, elem5, arc1);
-        printInfo(ctx, elem5);
-        printInfo(ctx, elem3);
-        printInfo(ctx, elem1);
-        std::cout << ctx->IsElement(elem1);
-        nodeAddr->SetValue(elem1);
+    arc1 = ctx->CreateArc(sc_type_arc_common, elem1, elem3);
+    ctx->CreateArc(sc_type_arc_pos_const_perm, elem5, arc1);
+    printInfo(ctx, elem5);
+    printInfo(ctx, elem3);
+    printInfo(ctx, elem1);
+    std::cout << ctx->IsElement(elem1);
+    nodeAddr->SetValue(elem1);
 }
 
-  
-std::string scLinkPlainNumbers(const std::unique_ptr<ScMemoryContext>& ctx, ScAddr const& elemAddr){
+
+std::string scLinkPlainNumbers(const std::unique_ptr<ScMemoryContext>& ctx, ScAddr const& elemAddr)
+{
     std::string str_link = Utils::scLinkGetString(ctx, elemAddr);
 
     std::regex integer_expr("(\\+|-)?[[:digit:]]+");
@@ -422,21 +431,23 @@ std::string scLinkPlainNumbers(const std::unique_ptr<ScMemoryContext>& ctx, ScAd
 
     std::string answer_str;
 
-    if(std::regex_match(str_link,integer_expr)){
-        std::cout<<"Input is an integer"<<std::endl;
+    if (std::regex_match(str_link, integer_expr))
+    {
+        //std::cout<<"Input is an integer"<<std::endl;
         //int value = std::atoi(str_link.c_str());
         //int answer = (int)sin((double)value);
         std::string int_str = "int: ";
         answer_str = int_str.append(str_link);
     }
 
-    if(std::regex_match(str_link, double_expr)){
-        std::cout<<"Input is a double"<<std::endl;
+    if (std::regex_match(str_link, double_expr))
+    {
+        //std::cout<<"Input is a double"<<std::endl;
         //double convertedDouble = std::stod(str_link);
         //double answer = sin(convertedDouble);
         std::string double_str = "double: ";
         answer_str = double_str.append(str_link);
-        std::cout<<answer_str<<std::endl;
+        //std::cout<<answer_str<<std::endl;
     }
 
     return answer_str;

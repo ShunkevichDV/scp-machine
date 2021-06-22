@@ -393,6 +393,10 @@ public:
     SC_PROPERTY(Keynode("syncronize"), ForceCreate)
     static ScAddr op_syncronize;
 
+    SC_PROPERTY(Keynode("last_entity"), ForceCreate)
+    static ScAddr last_entity;
+
+
 };
 
 }

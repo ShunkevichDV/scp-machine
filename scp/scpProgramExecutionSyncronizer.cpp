@@ -19,7 +19,30 @@ SC_AGENT_IMPLEMENTATION(ASCPProgramExecutionSyncronizer)
 
     ScAddr scp_operator = ms_context->GetArcEnd(edgeAddr);
 
-    if (ms_context->HelperCheckArc(Keynodes::question_finished_with_error, scp_operator, ScType::EdgeAccessConstPosPerm))
+    ScIterator3Ptr iter = ms_context->Iterator3(ScType::NodeConst, ScType::EdgeAccessConstPosPerm, scp_operator);
+    while (iter->Next())
+    {
+        ScAddr node = iter->Get(0);
+        ScAddr arc = iter->Get(1);
+        if (node == Keynodes::question_finished_with_error && !ms_context->HelperCheckArc(Keynodes::last_entity, arc, ScType::EdgeAccessConstPosPerm))
+        {
+            InitOperatorsByRelation(scp_operator, Keynodes::nrel_error);
+            return SC_RESULT_OK;
+        }
+        if (node == Keynodes::question_finished_successfully && !ms_context->HelperCheckArc(Keynodes::last_entity, arc, ScType::EdgeAccessConstPosPerm))
+        {
+            InitOperatorsByRelation(scp_operator, Keynodes::nrel_then);
+            InitOperatorsByRelation(scp_operator, Keynodes::nrel_goto);
+            return SC_RESULT_OK;
+        }
+        if (node == Keynodes::question_finished_unsuccessfully && !ms_context->HelperCheckArc(Keynodes::last_entity, arc, ScType::EdgeAccessConstPosPerm))
+        {
+            InitOperatorsByRelation(scp_operator, Keynodes::nrel_else);
+            InitOperatorsByRelation(scp_operator, Keynodes::nrel_goto);
+            return SC_RESULT_OK;
+        }
+    }
+    /*if (ms_context->HelperCheckArc(Keynodes::question_finished_with_error, scp_operator, ScType::EdgeAccessConstPosPerm))
     {
         InitOperatorsByRelation(scp_operator, Keynodes::nrel_error);
         return SC_RESULT_OK;
@@ -35,8 +58,7 @@ SC_AGENT_IMPLEMENTATION(ASCPProgramExecutionSyncronizer)
         InitOperatorsByRelation(scp_operator, Keynodes::nrel_else);
         InitOperatorsByRelation(scp_operator, Keynodes::nrel_goto);
         return SC_RESULT_OK;
-    }
-
+    }*/
     return SC_RESULT_OK;
 }
 

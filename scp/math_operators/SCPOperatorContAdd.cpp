@@ -13,8 +13,7 @@
 #include <cstring>
 #include <string>
 
-namespace scp
-{
+namespace scp {
 
 SCPOperatorContAdd::SCPOperatorContAdd(const std::unique_ptr<ScMemoryContext> &ctx, ScAddr addr): SCPOperatorElStr3(ctx, addr)
 {
@@ -97,8 +96,10 @@ sc_result SCPOperatorContAdd::Execute()
         answer_str = std::to_string(answer);
     }
 
-    if (answer_str.empty()){
-        if(!Utils::scLinkPlainNumbers(ms_context, operands[1]->GetValue()).empty() && !Utils::scLinkPlainNumbers(ms_context, operands[2]->GetValue()).empty()){
+    if (answer_str.empty())
+    {
+        if (!Utils::scLinkPlainNumbers(ms_context, operands[1]->GetValue()).empty() && !Utils::scLinkPlainNumbers(ms_context, operands[2]->GetValue()).empty())
+        {
             std::string str1 = Utils::scLinkPlainNumbers(ms_context, operands[1]->GetValue());
             std::string str2 = Utils::scLinkPlainNumbers(ms_context, operands[2]->GetValue());
             std::string intInit = "int: ";
@@ -131,11 +132,12 @@ sc_result SCPOperatorContAdd::Execute()
                 answer_str = std::to_string(answer);
             }
         }
-        else{
+        else
+        {
             FinishExecutionUnsuccessfully();
-            #ifdef SCP_DEBUG
-                Utils::logSCPError(ms_context, "Both operands are not numeric!", addr);
-            #endif
+#ifdef SCP_DEBUG
+            Utils::logSCPError(ms_context, "Both operands are not numeric!", addr);
+#endif
             return SC_RESULT_OK;
         }
     }
@@ -156,7 +158,7 @@ sc_result SCPOperatorContAdd::Execute()
     elem1 = operands[0]->CreateNodeOrLink();
     arc1 = ms_context->CreateArc(sc_type_arc_common, elem1, elem3);
     ms_context->CreateArc(sc_type_arc_pos_const_perm, elem5, arc1);
-    operands[0]->SetValue(elem1);
+    operands[0]->SetValue(elem3);
 
     std::cout << "SCPOperatorContAdd execute(): end \n";
     FinishExecutionSuccessfully();

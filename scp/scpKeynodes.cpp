@@ -161,4 +161,6 @@ ScAddr Keynodes::op_waitReturnSet;
 ScAddr Keynodes::op_return;
 ScAddr Keynodes::op_sys_wait;
 ScAddr Keynodes::op_syncronize;
+
+ScAddr Keynodes::last_entity;
 }
